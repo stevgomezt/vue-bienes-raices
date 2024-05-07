@@ -6,13 +6,13 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 export const useAuthStore = defineStore("auth", () => {
     const auth = useFirebaseAuth();
 
+    const authUser = ref({});
+
     const errorMsg = ref("");
 
     const errorCodes = {
         "auth/invalid-credential": "Usuario o Contrasena Incorrectos",
     };
-
-    const authUser = ref({});
 
     const login = ({ email, password }) => {
         // console.log(auth);
@@ -20,8 +20,7 @@ export const useAuthStore = defineStore("auth", () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 authUser.value = user;
-
-                console.log(authUser.value);
+                // console.log(authUser.value);
             })
             .catch((error) => {
                 // console.log(error.code);
