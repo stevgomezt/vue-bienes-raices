@@ -1,17 +1,29 @@
 <script setup>
 import { useForm, useField } from "vee-validate";
+import { useFirebaseAuth } from "vuefire";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { loginSchema } from "../validation/loginSchema.js";
 
 const { handleSubmit } = useForm({ validationSchema: loginSchema });
+const auth = useFirebaseAuth();
+
+console.log(auth);
 
 const email = useField("email");
 const password = useField("password");
 
-console.log(email)
-console.log(password)
+console.log(email);
+console.log(password);
 
-const submit = handleSubmit(() => {
-    console.log("Submit...");
+const submit = handleSubmit((values) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+            console.log(userCredential);
+        })
+        .catch((error) => {
+            console.log(error.code);
+            console.log(error.message);
+        });
 });
 </script>
 
@@ -44,7 +56,9 @@ const submit = handleSubmit(() => {
                 class="mb-3"
             />
 
-            <v-btn @click="submit" block color="pink-accent-3"> Iniciar Sesion </v-btn>
+            <v-btn @click="submit" block color="pink-accent-3">
+                Iniciar Sesion
+            </v-btn>
         </v-form>
     </v-card>
 </template>
