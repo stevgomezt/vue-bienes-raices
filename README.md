@@ -45,3 +45,4 @@ npm install
 npm run dev
 
 npm install vuetify
+npm i vee-validate
