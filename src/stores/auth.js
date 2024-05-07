@@ -12,11 +12,16 @@ export const useAuthStore = defineStore("auth", () => {
         "auth/invalid-credential": "Usuario o Contrasena Incorrectos",
     };
 
+    const authUser = ref({});
+
     const login = ({ email, password }) => {
         // console.log(auth);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log(userCredential);
+                const user = userCredential.user;
+                authUser.value = user;
+
+                console.log(authUser.value);
             })
             .catch((error) => {
                 // console.log(error.code);
