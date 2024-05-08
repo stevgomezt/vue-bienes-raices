@@ -4,6 +4,9 @@ import { collection, addDoc } from "firebase/firestore";
 import { useFirestore } from "vuefire";
 import { useRouter } from "vue-router";
 import useImage from "../../composables/useImage.js";
+import useLocationMap from "../../composables/useLocationMap.js";
+import "leaflet/dist/leaflet.css";
+import { LMap, LTileLayer, LMarker } from "@vue-leaflet/vue-leaflet";
 import {
     validationSchema,
     imageSchema,
@@ -12,6 +15,7 @@ import {
 const items = [1, 2, 3, 4, 5];
 
 const { url, uploadImage, image } = useImage();
+const { zoom, center, pin } = useLocationMap();
 
 const db = useFirestore();
 
@@ -40,7 +44,8 @@ const submit = handleSubmit(async (values) => {
 
     const docRef = await addDoc(collection(db, "propiedades"), {
         ...propiedad,
-        imagen: url.value
+        imagen: url.value,
+        ubicacion: center.value
     });
     if (docRef.id) {
         router.push({ name: "admin-propiedades" });
@@ -98,6 +103,7 @@ const submit = handleSubmit(async (values) => {
                         :error-messages="habitaciones.errorMessage.value"
                     />
                 </v-col>
+
                 <v-col cols="12" md="4">
                     <v-select
                         label="Wc"
@@ -107,6 +113,7 @@ const submit = handleSubmit(async (values) => {
                         :error-messages="wc.errorMessage.value"
                     />
                 </v-col>
+
                 <v-col cols="12" md="4">
                     <v-select
                         label="Estacionamientos"
@@ -117,17 +124,39 @@ const submit = handleSubmit(async (values) => {
                     />
                 </v-col>
             </v-row>
+
             <v-textarea
                 class="mb-5"
                 label="Descripcion"
                 v-model="descripcion.value.value"
                 :error-messages="descripcion.errorMessage.value"
             ></v-textarea>
+
             <v-checkbox
                 label="Alberca"
                 v-model="alberca.value.value"
                 :error-messages="alberca.errorMessage.value"
             ></v-checkbox>
+
+            <h2 class="font-weight-bold text-center my-5">Ubicacion</h2>
+            <div class="pb-10">
+                <div style="height: 600px">
+                    <LMap
+                        ref="map"
+                        v-model:zoom="zoom"
+                        :center="center"
+                        :use-global-leaflet="false"
+                    >
+                        <LMarker :lat-lng="center" draggable @moveend="pin"/>
+                        <LTileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            layer-type="base"
+                            name="OpenStreetMap"
+                        ></LTileLayer>
+                    </LMap>
+                </div>
+            </div>
+
             <v-btn @click="submit" color="pink-accent-3" block
                 >Agregar Propiedad</v-btn
             >

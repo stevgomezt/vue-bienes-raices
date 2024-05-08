@@ -50,3 +50,4 @@ npm i firebase
 npm i vuefire
 npm i @mdi/font
 npm i uid
+npm i -D @vue-leaflet/vue-leaflet leaflet
