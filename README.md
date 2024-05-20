@@ -44,7 +44,7 @@ cd vue-bienes-raices
 npm install
 npm run dev
 
-npm install vuetify
+npm i vuetify
 npm i vee-validate
 npm i firebase
 npm i vuefire

@@ -50,7 +50,12 @@ watch(propiedad, (propiedad) => {
 const submit = handleSubmit(async (values) => {
     const { imagen, ...propiedad } = values;
     if (image.value) {
-        console.log("Hay una imagen nueva");
+        const data = {
+            ...propiedad,
+            imagen: url.value,
+            ubicacion: center.value,
+        };
+        await updateDoc(docRef, data);    
     } else {
         const data = {
             ...propiedad,
