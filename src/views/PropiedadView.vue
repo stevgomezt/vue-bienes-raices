@@ -1,0 +1,67 @@
+<script setup>
+import { useRoute } from "vue-router";
+import { doc } from "firebase/firestore";
+import { useDocument, useFirestore } from "vuefire";
+import { propertyPrice } from "../helpers/index";
+
+const route = useRoute();
+// console.log(route.params.id);
+const db = useFirestore();
+const docRef = doc(db, "propiedades", route.params.id);
+const propiedad = useDocument(docRef);
+</script>
+
+<template>
+    <div>
+        <v-card-title class="mt-5 text-h3 text-center py-5 font-weight-bold">
+            {{ propiedad?.titulo }}
+        </v-card-title>
+        <v-img :src="propiedad?.imagen" height="550" cover />
+
+        <div
+            class="bg-blue-grey-lighten-5 d-flex flex-column flex-md-row aling-center"
+        >
+            <v-card-text class=""
+                >Precio :
+                <span class="font-weight-bold">{{
+                    propertyPrice(propiedad?.precio)
+                }}</span>
+            </v-card-text>
+            <v-card-text class=""
+                >Banos :
+                <span class="font-weight-bold">{{ propiedad?.wc }}</span>
+            </v-card-text>
+            <v-card-text class=""
+                >Estacionamiento :
+                <span class="font-weight-bold">{{
+                    propiedad?.estacionamiento
+                }}</span>
+            </v-card-text>
+            <v-card-text class=""
+                >Habitaciones :
+                <span class="font-weight-bold">{{
+                    propiedad?.habitaciones
+                }}</span>
+            </v-card-text>
+        </div>
+
+        <v-row>
+            <v-col cols="12" md="8">
+                <div class="text-no-wrap mt-10 py-10">
+                    {{ propiedad?.descripcion }}
+                </div>
+            </v-col>
+            <v-col cols="12" md="4">
+                <div class="py-10">
+                    <p>Mapa</p>
+                </div>
+            </v-col>
+        </v-row>
+    </div>
+</template>
+
+<style scoped>
+.text-pre-wrap {
+    white-space: pre-wrap;
+}
+</style>
