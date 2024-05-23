@@ -44,10 +44,10 @@ cd vue-bienes-raices
 npm install
 npm run dev
 
-npm i vuetify
-npm i vee-validate
-npm i firebase
-npm i vuefire
-npm i @mdi/font
-npm i uid
-npm i -D @vue-leaflet/vue-leaflet leaflet
+npm install vuetify
+npm install vee-validate
+npm install firebase
+npm install vuefire
+npm install @mdi/font
+npm install uid
+npm install -D @vue-leaflet/vue-leaflet leaflet

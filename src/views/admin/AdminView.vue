@@ -22,10 +22,10 @@ const { propiedadesCollection, deleteItem } = usePropiedades();
 
                 <v-list-item-title class="ml-5">{{
                     propiedad.titulo
-                    }}</v-list-item-title>
+                }}</v-list-item-title>
                 <v-list-item-subtitle class="ml-5">{{
                     propertyPrice(propiedad.precio)
-                    }}</v-list-item-subtitle>
+                }}</v-list-item-subtitle>
 
                 <template v-slot:append>
                     <v-btn color="info" flat class="mr-2" :to="{
@@ -34,7 +34,7 @@ const { propiedadesCollection, deleteItem } = usePropiedades();
                     }">
                         Editar
                     </v-btn>
-                    <v-btn color="red-darken-3" flat class="mr-2" @click="deleteItem(propiedad.id)">
+                    <v-btn color="red-darken-3" flat class="mr-2" @click="deleteItem(propiedad.id, propiedad.imagen)">
                         Eliminar
                     </v-btn>
                 </template>
