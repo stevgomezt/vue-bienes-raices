@@ -27,7 +27,13 @@ const submit = handleSubmit((values) => {
             Inicia Sesion con tu Cuenta
         </v-card-subtitle>
 
-        <v-alert v-if="auth.hasError" type="error" class="my-5" :title="auth.errorMsg" text="">
+        <v-alert
+            v-if="auth.hasError"
+            type="error"
+            class="my-5"
+            :title="auth.errorMsg"
+            text=""
+        >
         </v-alert>
 
         <v-form class="mt-5">

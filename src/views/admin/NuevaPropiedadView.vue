@@ -45,7 +45,7 @@ const submit = handleSubmit(async (values) => {
     const docRef = await addDoc(collection(db, "propiedades"), {
         ...propiedad,
         imagen: url.value,
-        ubicacion: center.value
+        ubicacion: center.value,
     });
     if (docRef.id) {
         router.push({ name: "admin-propiedades" });
@@ -147,7 +147,7 @@ const submit = handleSubmit(async (values) => {
                         :center="center"
                         :use-global-leaflet="false"
                     >
-                        <LMarker :lat-lng="center" draggable @moveend="pin"/>
+                        <LMarker :lat-lng="center" draggable @moveend="pin" />
                         <LTileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             layer-type="base"
